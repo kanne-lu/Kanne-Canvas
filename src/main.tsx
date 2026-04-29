@@ -283,9 +283,9 @@ function App() {
 
           {lightbox && (
             <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
-              <div className="lightbox-content" onClick={(event) => event.stopPropagation()}>
+              <div className="lightbox-content" onClick={() => setLightbox(null)}>
                 <img className="lightbox-img" src={lightbox.images[lightbox.index].src} alt="预览" />
-                <div className="lightbox-bar">
+                <div className="lightbox-bar" onClick={(event) => event.stopPropagation()}>
                   <a className="lightbox-download" href={lightbox.images[lightbox.index].src} target="_blank" rel="noreferrer"><Download size={16} /> 下载</a>
                   <span className="lightbox-counter">{lightbox.index + 1} / {lightbox.images.length}</span>
                   <button className="lightbox-close" onClick={() => setLightbox(null)}><X size={20} /></button>
