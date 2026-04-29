@@ -61,7 +61,7 @@ async function readJson(response: Response) {
   return (await response.json().catch(() => null)) as ExternalResponse | null;
 }
 
-async function pollDuomiTask(settings: ApiSettings, taskId: string, format: string) {
+export async function pollDuomiTask(settings: ApiSettings, taskId: string, format: string) {
   for (let attempt = 0; attempt < 90; attempt += 1) {
     const targetUrl = resolveTaskEndpoint(settings.baseUrl, taskId);
     const proxyEndpoint = import.meta.env.VITE_PROXY_ENDPOINT || '/api.php';
@@ -130,7 +130,26 @@ export async function generateImages(settings: ApiSettings, request: GenerateReq
     }
     
     if (!payload.id) throw new Error(`多米接口没有返回任务 ID。API返回内容: ${JSON.stringify(payload)}`);
-    return pollDuomiTask(settings, payload.id, request.format);
+
+    // 缓存进行中的异步任务，防止页面刷新丢失
+    const pendingTask = {
+      id: payload.id,
+      prompt: prompt,
+      format: request.format,
+      size: request.size,
+      quality: request.quality,
+      n: request.n,
+    };
+    localStorage.setItem('image-lab-pending-task', JSON.stringify(pendingTask));
+
+    try {
+      const images = await pollDuomiTask(settings, payload.id, request.format);
+      localStorage.removeItem('image-lab-pending-task');
+      return images;
+    } catch (e) {
+      localStorage.removeItem('image-lab-pending-task');
+      throw e;
+    }
   }
 
   const images = normalizeImages(payload, request.format);

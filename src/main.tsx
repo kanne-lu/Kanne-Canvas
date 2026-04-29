@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Aperture, Bolt, Download, Eye, EyeOff, ImagePlus, KeyRound, Loader2, Lock, RadioTower, Sparkles, Trash2, Upload, X } from 'lucide-react';
-import { generateImages } from './imageApi';
+import { generateImages, pollDuomiTask } from './imageApi';
 import type { ApiSettings, GeneratedImage, GenerateRequest, HistoryItem, ImageFormat, ImageQuality, ImageSize, ReferenceImage } from './types';
 import './index.css';
 
@@ -105,6 +105,46 @@ function App() {
       if (files.length) void handleFileArray(files);
     }
     window.addEventListener('paste', handlePaste);
+
+    // 恢复刷新页面前正在执行的异步任务
+    const rawPending = localStorage.getItem('image-lab-pending-task');
+    if (rawPending) {
+      try {
+        const pendingTask = JSON.parse(rawPending) as { id: string; prompt: string; format: ImageFormat; size: ImageSize; quality: ImageQuality; n: number };
+        if (pendingTask && pendingTask.id) {
+          setStatus('loading');
+          void (async () => {
+            try {
+              const images = await pollDuomiTask(settings, pendingTask.id, pendingTask.format);
+              const persistedImages = await Promise.all(images.map(async (image) => ({
+                ...image,
+                src: image.src.startsWith('http') ? await saveGeneratedImage(image.src) : image.src,
+              })));
+              const item: HistoryItem = {
+                id: `run_${Date.now()}`,
+                prompt: pendingTask.prompt,
+                createdAt: new Date().toISOString(),
+                settings: { size: pendingTask.size, quality: pendingTask.quality, format: pendingTask.format, n: pendingTask.n },
+                images: persistedImages,
+              };
+              const currentHistory = loadHistory();
+              const newHistory = [item, ...currentHistory];
+              updateHistory(newHistory.slice(0, 12));
+              setSelectedHistoryId(null);
+              setStatus('success');
+            } catch (caught) {
+              setError(caught instanceof Error ? caught.message : '恢复轮询失败。');
+              setStatus('error');
+            } finally {
+              localStorage.removeItem('image-lab-pending-task');
+            }
+          })();
+        }
+      } catch {
+        localStorage.removeItem('image-lab-pending-task');
+      }
+    }
+
     return () => window.removeEventListener('paste', handlePaste);
   }, []);
 
