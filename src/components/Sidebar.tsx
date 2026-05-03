@@ -1,15 +1,16 @@
 import React from 'react';
 import { Image, Package, Megaphone, Zap, User } from 'lucide-react';
+import type { ModuleType } from '../types';
 
 interface SidebarProps {
-  activeModule: string;
-  onModuleChange: (module: string) => void;
+  activeModule: ModuleType;
+  onModuleChange: (module: ModuleType) => void;
   isLoggedIn: boolean;
   onLoginClick: () => void;
 }
 
 export function Sidebar({ activeModule, onModuleChange, isLoggedIn, onLoginClick }: SidebarProps) {
-  const modules = [
+  const modules: { id: ModuleType; icon: typeof Image; label: string }[] = [
     { id: 'general', icon: Image, label: '通用生图' },
     { id: 'product', icon: Package, label: '商品图' },
     { id: 'marketing', icon: Megaphone, label: '营销' },

@@ -613,3 +613,16 @@ input:focus, textarea:focus, select:focus { border-color: #2563eb; box-shadow: 0
   text-align: center;
 }
 
+/* ===== Content Header ===== */
+.content-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+.content-body {
+  min-height: calc(100vh - 100px);
+}
+
