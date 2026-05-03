@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-虾道 (Xiadao / Kanne Canvas) — 轻量级本地 AI 图片生成平台，兼容 OpenAI 图片生成 API，默认对接 `duomiapi.com`。
+Kanne Canvas — 轻量级本地 AI 图片生成平台，兼容 OpenAI 图片生成 API，默认对接 `duomiapi.com`。
 
 ## Commands
 
@@ -43,6 +43,6 @@ pnpm typecheck    # 仅类型检查
 
 ## Known Issues (from PRD)
 
-- 品牌名待统一：代码中仍为 "Kanne Canvas"，需更名为"虾道"
+- 品牌名确认： Kanne Canvas
 - PHP 上传依赖在纯静态部署中不可用
 - 所有依赖锁定 `latest`，无版本锁定

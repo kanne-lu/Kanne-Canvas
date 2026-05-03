@@ -1,6 +1,6 @@
 <?php
 /**
- * 虾道 (Xiadao) 专用 AI API 代理层
+ * Kanne Canvas 专用 AI API 代理层
  * 放置于服务器根目录 (dist) 下
  */
 
