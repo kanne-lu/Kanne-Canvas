@@ -3,6 +3,9 @@ import { Sidebar } from './Sidebar';
 import { LoginModal } from '../modules/auth/LoginModal';
 import { UserInfo } from '../modules/auth/UserInfo';
 import { CheckIn } from '../modules/points/CheckIn';
+import { ProductImageModule } from '../modules/product/ProductImage';
+import { MarketingMaterialModule } from '../modules/marketing/MarketingMaterial';
+import { AdvancedModule } from '../modules/advanced/AdvancedModule';
 import { getUserProfile, getToken, removeToken, removeUserProfile } from '../utils/storage';
 import type { UserProfile } from '../modules/auth/types';
 import type { ModuleType } from '../types';
@@ -70,7 +73,15 @@ export function Layout({ children }: LayoutProps) {
         </div>
 
         <div className="content-body">
-          {children}
+          {activeModule === 'product' ? (
+            <ProductImageModule />
+          ) : activeModule === 'marketing' ? (
+            <MarketingMaterialModule />
+          ) : activeModule === 'advanced' ? (
+            <AdvancedModule />
+          ) : (
+            children
+          )}
         </div>
       </main>
 

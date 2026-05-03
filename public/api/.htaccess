@@ -1,0 +1,34 @@
+# API URL 重写规则
+RewriteEngine On
+
+# 设置 CORS 头
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# 处理 OPTIONS 预检请求
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# 认证接口重写
+RewriteRule ^auth/register$ auth/register.php [L]
+RewriteRule ^auth/login$ auth/login.php [L]
+RewriteRule ^auth/send-code$ auth/send-code.php [L]
+RewriteRule ^auth/verify-email$ auth/verify-email.php [L]
+RewriteRule ^auth/reset-password$ auth/reset-password.php [L]
+RewriteRule ^auth/refresh$ auth/refresh.php [L]
+
+# 积分接口重写
+RewriteRule ^points/info$ points/info.php [L]
+RewriteRule ^points/check-in$ points/check-in.php [L]
+RewriteRule ^points/invite$ points/invite.php [L]
+RewriteRule ^points/history$ points/history.php [L]
+RewriteRule ^points/tasks$ points/tasks.php [L]
+
+# 任务完成接口（动态路由）
+RewriteRule ^points/tasks/([^/]+)/complete$ points/tasks/complete.php [L]
+
+# 如果请求的文件不存在，返回 404
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ - [R=404,L]
