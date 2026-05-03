@@ -503,3 +503,113 @@ input:focus, textarea:focus, select:focus { border-color: #2563eb; box-shadow: 0
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* ===== Check-in Card ===== */
+.check-in-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.check-in-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.check-in-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.check-in-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.consecutive-days {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.days-number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.days-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.reward-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 13px;
+  color: #666;
+}
+
+.points-reward {
+  font-size: 16px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.check-in-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.check-in-button:not(.checked) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.check-in-button:not(.checked):hover {
+  opacity: 0.9;
+}
+
+.check-in-button.checked {
+  background: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.check-in-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.check-in-error {
+  background: #fee;
+  color: #c00;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.check-in-success {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
