@@ -183,4 +183,80 @@ input:focus, textarea:focus, select:focus { border-color: #2563eb; box-shadow: 0
   .lightbox-nav { width: 40px; height: 40px; font-size: 22px; }
 }
 
+/* ===== Sidebar Navigation ===== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-logo {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  text-align: left;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sidebar-item.active {
+  background: rgba(102, 126, 234, 0.3);
+  color: white;
+  border-right: 3px solid #667eea;
+}
+
+.sidebar-footer {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-button {
+  color: #667eea;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 200px;
+  padding: 0;
+}
+
 

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Aperture, Bolt, Download, Eye, EyeOff, ImagePlus, KeyRound, Loader2, Lock, RadioTower, Sparkles, Trash2, Upload, X } from 'lucide-react';
 import { generateImages, pollDuomiTask } from './imageApi';
 import type { ApiSettings, GeneratedImage, GenerateRequest, HistoryItem, ImageFormat, ImageQuality, ImageSize, ReferenceImage } from './types';
+import { Layout } from './components/Layout';
 import './index.css';
 
 const SETTINGS_KEY = 'image-lab-settings';
@@ -233,6 +234,7 @@ function App() {
   }
 
   return (
+    <Layout>
     <main className="lab-shell">
       <div className="orb orb-a" />
       <div className="orb orb-b" />
@@ -351,6 +353,7 @@ function App() {
         </section>
       </section>
     </main>
+    </Layout>
   );
 }
 
