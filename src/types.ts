@@ -41,3 +41,14 @@ export type HistoryItem = {
   };
   images: GeneratedImage[];
 };
+
+import type { UserProfile } from './modules/auth/types';
+
+export type ModuleType = 'general' | 'product' | 'marketing' | 'advanced' | 'profile' | 'tasks' | 'points';
+
+export interface AppState {
+  activeModule: ModuleType;
+  isLoggedIn: boolean;
+  user: UserProfile | null;
+  token: string | null;
+}
